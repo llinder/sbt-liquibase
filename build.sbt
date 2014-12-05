@@ -1,16 +1,26 @@
 
 sbtPlugin := true
 
-organization := "com.github.bigtoast"
+organization := "com.github.sbtliquibase"
 
 name := "sbt-liquibase"
 
-version := "0.5"
+version := "0.1.0-SNAPSHOT"
 
-crossScalaVersions := Seq("2.9.2", "2.10.0")
+crossScalaVersions := Seq("2.10.4")
 
 libraryDependencies += "org.liquibase" % "liquibase-core" % "3.3.0"
 
 publishMavenStyle := true
 
-publishTo := Some(Resolver.file("bigtoast.github.com", file(Path.userHome + "/Projects/BigToast/bigtoast.github.com/repo")))
+scriptedSettings
+
+//scriptedLaunchOpts <+= version apply { v => "-Dproject.version="+v }
+
+scriptedLaunchOpts := { scriptedLaunchOpts.value ++
+  Seq("-Xmx1024M", "-XX:MaxPermSize=256M", "-Dplugin.version=" + version.value)
+}
+
+scriptedBufferLog := false
+
+// TODO publish to Sonatype OSS

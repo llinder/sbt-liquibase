@@ -1,9 +1,7 @@
-target
+target/
 bin
 build
 **/*.class
 *~
-project
-project/target
 .cache
 .*
